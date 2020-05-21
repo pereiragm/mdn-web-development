@@ -1,2 +1,38 @@
-const myHeading = document.querySelector('h1');
-myHeading.textContent = 'Hello world!';
+// Changes firefox image when we click on it
+let myImage = document.querySelector('img');
+
+myImage.onclick = function () {
+    let mySrc = myImage.getAttribute('src');
+    if (mySrc === 'images/firefox-icon.jpeg') {
+        myImage.setAttribute('src', 'images/firefox-icon2.jpeg');
+    } else {
+        myImage.setAttribute('src', 'images/firefox-icon.jpeg');
+    }
+}
+
+// Personalized greeting when we click on button "Change user"
+let myButton = document.querySelector('button');
+let myHeading = document.querySelector('h1');
+
+function setUserName() {
+    let myName = prompt('Please enter your name.');
+    // localStorage.setItem('name', myName);
+    // myHeading.innerHTML = 'Mozilla is cool, ' + myName;
+    if (!myName || myName === null) {
+        setUserName();
+    } else {
+        localStorage.setItem('name', myName);
+        myHeading.innerHTML = 'Mozilla is cool, ' + myName;
+    }
+}
+
+if (!localStorage.getItem('name')) {
+    setUserName();
+} else {
+    let storedName = localStorage.getItem('name');
+    myHeading.textContent = 'Mozilla is cool, ' + storedName;
+}
+
+myButton.onclick = function () {
+    setUserName();
+}
